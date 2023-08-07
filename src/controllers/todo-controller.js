@@ -1,35 +1,35 @@
 const { TodoService } = require("../services");
 const { StatusCodes } = require("http-status-codes");
+const { SuccessResponse, ErrorResponse } = require("../utils/common");
 
+/**
+ * POST /api/v1/todos
+ * request body: 
+ * { "task": "task title", "description": "task details" }
+ */
 async function createTodo(req, res) {
     try {
         const todo = await TodoService.createTodo({
             task: req.body.task,
             description: req.body.description
         });
+        SuccessResponse.data = todo;
+        SuccessResponse.message = "Successfully created a todo";
         return res
                 .status(StatusCodes.CREATED)
-                .json({
-                    success: true,
-                    message: "Successfully created a todo",
-                    data: todo,
-                    error: {}     
-                });
+                .json(SuccessResponse);
     } catch (error) {
-        res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                success: false,
-                message: "Something went wrong while creating a todo",
-                data: {},
-                error: error    
-            });
+        console.log(error);
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
     }
 }
 
-async function getAllTodo(req, res) {
+async function getTodos(req, res) {
     try {
-        const todo = await TodoService.getAllTodo();
+        const todo = await TodoService.getTodos();
         return res
                 .status(StatusCodes.OK)
                 .json({
@@ -50,7 +50,106 @@ async function getAllTodo(req, res) {
     }
 }
 
+async function getTodo(req, res) {
+    try {
+        const todo = await TodoService.getTodo(req.params.id);
+        return res
+                .status(StatusCodes.OK)
+                .json({
+                    success: true,
+                    message: "Successfully got todo",
+                    data: todo,
+                    error: {}     
+                });
+    } catch (error) {
+        res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({
+                success: false,
+                message: "Something went wrong while getting todo",
+                data: {},
+                error: error    
+            });
+    }
+}
+
+async function updateTodo(req, res) {
+    try {
+        const todo = await TodoService.updateTodo(req.params.id, {
+            task: req.body.task,
+            description: req.body.description
+        });
+        return res
+                .status(StatusCodes.OK)
+                .json({
+                    success: true,
+                    message: "Successfully updated todo",
+                    data: todo,
+                    error: {}     
+                });
+    } catch (error) {
+        res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({
+                success: false,
+                message: "Something went wrong while updating todo",
+                data: {},
+                error: error    
+            });
+    }
+}
+
+async function destroyTodo(req, res) {
+    try {
+        const todo = await TodoService.destroyTodo(req.params.id);
+        return res
+                .status(StatusCodes.OK)
+                .json({
+                    success: true,
+                    message: "Successfully deleted todo",
+                    data: todo,
+                    error: {}     
+                });
+    } catch (error) {
+        res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({
+                success: false,
+                message: "Something went wrong while removing todo",
+                data: {},
+                error: error    
+            });
+    }
+}
+
+async function updateCompletedAttribute(req, res) {
+    try {
+        const todo = await TodoService.toggleCompletedAttribute(req.params.id);
+        return res
+                .status(StatusCodes.OK)
+                .json({
+                    success: true,
+                    message: "Successfully toggled completed attribute",
+                    data: todo,
+                    error: {}     
+                });
+    } catch (error) {
+        res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({
+                success: false,
+                message: "Something went wrong while updating completed attribute",
+                data: {},
+                error: error    
+            });
+    }
+}
+
 module.exports = {
     createTodo,
-    getAllTodo
+    getTodos,
+    getTodo,
+    updateTodo,
+    destroyTodo,
+    updateCompletedAttribute
 }

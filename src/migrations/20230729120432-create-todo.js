@@ -10,10 +10,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       task: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1,10]
+        }
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: ""
       },
       completed: {
         type: Sequelize.BOOLEAN,

@@ -1,4 +1,5 @@
 const { Logger } = require('../config');
+const { StatusCodes } = require('http-status-codes');
 
 class CrudRepository {
     constructor(model) {
@@ -6,18 +7,16 @@ class CrudRepository {
     }
 
     async create(data) {
-        try {
-            const response = await this.model.create(data);
-            return response;
-        } catch (error) {
-            Logger.error("Something went wrong in the Crud Repository: create");
-            throw error;
-        }
+        const response = await this.model.create(data);
+        return response;
     }
 
-    async get(data) {
+    async get(id) {
         try {
-            const response = await this.model.findByPk(data.id);
+            const response = await this.model.findByPk(id);
+            if(!response) {
+                throw new Error("Not able to find the resource", StatusCodes.NOT_FOUND);
+            }
             return response;
         } catch (error) {
             Logger.error("Something went wrong in the Crud Repository: get");
@@ -49,11 +48,11 @@ class CrudRepository {
         }
     }
 
-    async destroy(data) {
+    async destroy(id) {
         try {
             const response = await this.model.destroy({
                 where: {
-                    id: data
+                    id: id
                 }
             });
             return response;

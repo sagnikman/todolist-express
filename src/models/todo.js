@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Todo.init({
-    task: DataTypes.STRING,
+    task: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1,128]
+      }
+    }, 
     description: DataTypes.STRING,
     completed: DataTypes.BOOLEAN
   }, {
