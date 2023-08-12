@@ -48,7 +48,10 @@ async function updateTodo(id, data) {
         const todo = await todoRepository.update(id, data);
         return todo;
     } catch (error) {
-        throw new AppError("Cannot");
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError("The todo you requested is not present", error.statusCode);
+        }
+        throw new AppError("Cannot update todo", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
 
@@ -57,8 +60,10 @@ async function destroyTodo(id) {
         const todo = await todoRepository.destroy(id);
         return todo;
     } catch (error) {
-        Logger.error("Something went wrong in Todo Service: destroyTodo");
-        throw error;
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError("The todo you requested to delete is not present", error.statusCode);
+        }
+        throw new AppError("Cannot delete todo", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
 
@@ -70,8 +75,10 @@ async function toggleCompletedAttribute(id) {
         });
         return todo;
     } catch (error) {
-        Logger.error("Something went wrong in Todo Service: toggleCompletedAttribute");
-        throw error;
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("The todo you requested to update is not present", error.statusCode);
+        }
+        throw new AppError("Something went wrong in Todo Service: toggleCompletedAttribute", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
  

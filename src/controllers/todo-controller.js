@@ -72,69 +72,51 @@ async function updateTodo(req, res) {
             task: req.body.task,
             description: req.body.description
         });
+        SuccessResponse.data = todo;
+        SuccessResponse.message = "Successfully updated the todo"
         return res
                 .status(StatusCodes.OK)
-                .json({
-                    success: true,
-                    message: "Successfully updated todo",
-                    data: todo,
-                    error: {}     
-                });
+                .json(SuccessResponse);
     } catch (error) {
+        ErrorResponse.message = "Something went wrong while updating a todo";
+        ErrorResponse.error = error;
         res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                success: false,
-                message: "Something went wrong while updating todo",
-                data: {},
-                error: error    
-            });
+            .status(error.statusCode)
+            .json(ErrorResponse);
     }
 }
 
 async function destroyTodo(req, res) {
     try {
         const todo = await TodoService.destroyTodo(req.params.id);
+        SuccessResponse.data = todo;
+        SuccessResponse.message = "Successfully deleted the todo"
         return res
                 .status(StatusCodes.OK)
-                .json({
-                    success: true,
-                    message: "Successfully deleted todo",
-                    data: todo,
-                    error: {}     
-                });
+                .json(SuccessResponse);
     } catch (error) {
+        ErrorResponse.message = "Something went wrong while deleting a todo";
+        ErrorResponse.error = error;
         res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                success: false,
-                message: "Something went wrong while removing todo",
-                data: {},
-                error: error    
-            });
+            .status(error.statusCode)
+            .json(ErrorResponse);
     }
 }
 
 async function updateCompletedAttribute(req, res) {
     try {
         const todo = await TodoService.toggleCompletedAttribute(req.params.id);
+        SuccessResponse.data = todo;
+        SuccessResponse.message = "Successfully updated the completed attribute of todo"
         return res
                 .status(StatusCodes.OK)
-                .json({
-                    success: true,
-                    message: "Successfully toggled completed attribute",
-                    data: todo,
-                    error: {}     
-                });
+                .json(SuccessResponse);
     } catch (error) {
+        ErrorResponse.message = "Something went wrong while updating completed attribute";
+        ErrorResponse.error = error;
         res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                success: false,
-                message: "Something went wrong while updating completed attribute",
-                data: {},
-                error: error    
-            });
+            .status(error.statusCode)
+            .json(ErrorResponse);
     }
 }
 
