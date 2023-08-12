@@ -53,23 +53,16 @@ async function getTodos(req, res) {
 async function getTodo(req, res) {
     try {
         const todo = await TodoService.getTodo(req.params.id);
+        SuccessResponse.data = todo;
         return res
                 .status(StatusCodes.OK)
-                .json({
-                    success: true,
-                    message: "Successfully got todo",
-                    data: todo,
-                    error: {}     
-                });
+                .json(SuccessResponse);
     } catch (error) {
+        ErrorResponse.message = "Something went wrong while getting a todo";
+        ErrorResponse.error = error;
         res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({
-                success: false,
-                message: "Something went wrong while getting todo",
-                data: {},
-                error: error    
-            });
+            .status(error.statusCode)
+            .json(ErrorResponse);
     }
 }
 

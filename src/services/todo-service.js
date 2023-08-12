@@ -36,8 +36,10 @@ async function getTodo(id) {
         const todo = await todoRepository.get(id);
         return todo;
     } catch (error) {
-        Logger.error("Something went wrong in Todo Service: getTodo");
-        throw error;
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError("The todo you requested is not present", error.statusCode);
+        }
+        throw new AppError("Cannot fetch data of the todo", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
 
@@ -46,8 +48,7 @@ async function updateTodo(id, data) {
         const todo = await todoRepository.update(id, data);
         return todo;
     } catch (error) {
-        Logger.error("Something went wrong in Todo Service: updateTodo");
-        throw error;
+        throw new AppError("Cannot");
     }
 }
 
