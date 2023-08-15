@@ -1,3 +1,4 @@
 module.exports = {
-    TodoService: require("./todo-service")
+    TodoService: require("./todo-service"),
+    UserService: require("./user-service")
 }

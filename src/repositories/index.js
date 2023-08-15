@@ -1,3 +1,4 @@
 module.exports = {
-    TodoReposity: require("./todo-repository")
+    TodoRepository: require("./todo-repository"),
+    UserRepository: require("./user-repository")
 }
