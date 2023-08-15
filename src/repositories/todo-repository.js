@@ -1,5 +1,5 @@
-const CrudRepository = require("./crud-repository");
-const { Todo } = require("../models");
+const CrudRepository = require('./crud-repository');
+const { Todo } = require('../models');
 
 
 class TodoRepository extends CrudRepository {

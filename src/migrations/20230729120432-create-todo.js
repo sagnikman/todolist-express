@@ -19,7 +19,7 @@ module.exports = {
       },
       description: {
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: ''
       },
       completed: {
         type: Sequelize.BOOLEAN,

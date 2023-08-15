@@ -15,7 +15,7 @@ class CrudRepository {
     async get(id) {
         const response = await this.model.findByPk(id);
         if(!response) {
-            throw new AppError("Not able to find the resource", StatusCodes.NOT_FOUND);
+            throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
         }
         return response;
     }
@@ -25,7 +25,7 @@ class CrudRepository {
             const response = await this.model.findAll();
             return response;
         } catch (error) {
-            Logger.error("Something went wrong in the Crud Repository: getAll");
+            Logger.error('Something went wrong in the Crud Repository: getAll');
             throw error
         }
     }
@@ -37,7 +37,7 @@ class CrudRepository {
             }
         });
         if(!response[0]) {
-            throw new AppError("Not able to find the resource", StatusCodes.NOT_FOUND);
+            throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
         }
         return response;
     }
@@ -49,7 +49,7 @@ class CrudRepository {
             }
         });
         if(!response[0]) {
-            throw new AppError("Not able to find the resource", StatusCodes.NOT_FOUND);
+            throw new AppError('Not able to find the resource', StatusCodes.NOT_FOUND);
         }
         return response;
     }
