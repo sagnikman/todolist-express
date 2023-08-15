@@ -1,6 +1,7 @@
 const express = require('express');
 
 const { InfoController } = require('../../controllers');
+const { AuthMiddlewares } = require('../../middlewares');
 
 const todoRoutes = require('./todo-routes');
 
@@ -12,6 +13,6 @@ router.use('/todos', todoRoutes);
 
 router.use('/user', userRoutes);
 
-router.get('/info', InfoController.info);
+router.get('/info', AuthMiddlewares.checkAuth, InfoController.info);
 
 module.exports = router;
