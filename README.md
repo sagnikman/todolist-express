@@ -11,6 +11,7 @@
         SALT_ROUNDS=<Number of salt rounds>
         JWT_SECRET=<your JWT secret key>
         JWT_EXPIRY=<set expiry for JWT Token>
+        NODE_ENV=<database environment>
     ```
 
  - go inside the `src` folder and execute the following command:
