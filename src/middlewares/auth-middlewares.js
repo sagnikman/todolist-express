@@ -24,7 +24,6 @@ function validateAuthRequest(req, res, next) {
 async function checkAuth(req, res, next) {
     try {
         const response = await UserService.isAuthenticated(req.headers['x-access-token']);
-        console.log('checking auth', 'response: ', response);
         if(response) {
             req.user = response; 
             next();
