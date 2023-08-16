@@ -9,10 +9,10 @@ const userRoutes = require('./user-routes');
 
 const router = express.Router();
 
-router.use('/todos', todoRoutes);
+router.use('/todos', AuthMiddlewares.checkAuth, todoRoutes);
 
 router.use('/user', userRoutes);
 
-router.get('/info', AuthMiddlewares.checkAuth, InfoController.info);
+router.get('/info', InfoController.info);
 
 module.exports = router;

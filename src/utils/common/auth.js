@@ -20,7 +20,8 @@ function createToken(input){
 
 function verifyToken(token) {
     try {
-        return jwt.verify(token, ServerConfig.JWT_SECRET);
+        const verify = jwt.verify(token, ServerConfig.JWT_SECRET);
+        return verify;
     } catch (error) {
         throw error;
     }

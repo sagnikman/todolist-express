@@ -23,17 +23,22 @@ function validateAuthRequest(req, res, next) {
 
 async function checkAuth(req, res, next) {
     try {
-        const response = await UserService.isAuthenticated(req.headers['x-access-token']);
+        const authHeader = req.headers['authorization'];
+        if(!authHeader) {
+            throw new AppError('Authorization header is required in the request', StatusCodes.BAD_REQUEST);
+        }
+        const response = await UserService.isAuthenticated(authHeader.split(' ')[1]);
         if(response) {
             req.user = response; 
             next();
         }         
     } catch (error) {
+        ErrorResponse.message = 'Something went wrong while authenticating user';
+        ErrorResponse.error = error
         return res
                 .status(error.statusCode)
-                .json(error);
+                .json(ErrorResponse);
     }
-
 }
 
 

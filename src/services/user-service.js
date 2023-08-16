@@ -42,7 +42,7 @@ async function signin(data) {
 async function isAuthenticated(token) {
     try {
         if(!token) {
-            throw new AppError('Missing JWT token', StatusCodes.BAD_REQUEST);
+            throw new AppError('Missing JWT token, format should be Bearer <token>', StatusCodes.BAD_REQUEST);
         }
         const response = Auth.verifyToken(token);
         const user = await userRepository.get(response.id);
