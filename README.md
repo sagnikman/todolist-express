@@ -27,7 +27,38 @@
  npm run dev
  ```
 
-# APIs
+
+# API Documentation
+
+**Host Name**: https://todolistapis.fly.dev/
+
+## Test API
+
+**Method** : `GET`
+
+**URL** : `/api/v1/info`
+
+**Auth Required** : NO
+
+**cURL**
+```bash
+curl --location 'https://todolistapis.fly.dev/api/v1/info'
+```
+
+### Success Response
+
+**Code** : `200 OK`
+
+**Example**
+
+```json
+{
+    "success": true,
+    "message": "API is live",
+    "error": {},
+    "data": {}
+}
+```
 
 ## Create User
 
@@ -35,11 +66,11 @@
 
 **URL** : `/api/v1/user/signup`
 
-**Auth Required** : NO
+**Auth Required** : No
 
 **cURL**
 ```bash
-curl --location '127.0.0.1:3000/api/v1/user/signup' \
+curl --location 'https://todolistapis.fly.dev/api/v1/user/signup' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "abcd123@amail.com",
@@ -75,11 +106,11 @@ curl --location '127.0.0.1:3000/api/v1/user/signup' \
 
 **URL** : `/api/v1/user/signin`
 
-**Auth Required** : NO
+**Auth Required** : No
 
 **cURL**
 ```bash
-curl --location '127.0.0.1:3000/api/v1/user/signin' \
+curl --location 'https://todolistapis.fly.dev/api/v1/user/signin' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'email=abcd123@amail.com' \
 --data-urlencode 'password=417883abc'
@@ -108,11 +139,11 @@ curl --location '127.0.0.1:3000/api/v1/user/signin' \
 
 **URL** : `/api/v1/todos`
 
-**Auth Required** : YES
+**Auth Required** : Yes
 
 **cURL**
 ```bash
-curl --location '127.0.0.1:3000/api/v1/todos' \
+curl --location 'https://todolistapis.fly.dev/api/v1/todos' \
 --header 'Authorization: Bearer <your_token>' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'task=task' \
@@ -147,11 +178,11 @@ curl --location '127.0.0.1:3000/api/v1/todos' \
 
 **URL** : `/api/v1/todos`
 
-**Auth Required** : YES
+**Auth Required** : Yes
 
 **cURL**
 ```bash
-curl --location '127.0.0.1:3000/api/v1/todos' \
+curl --location 'https://todolistapis.fly.dev/api/v1/todos' \
 --header 'Authorization: Bearer <your_token>'
 ```
 
@@ -194,11 +225,11 @@ curl --location '127.0.0.1:3000/api/v1/todos' \
 
 **URL** : `/api/v1/todos/<id>`
 
-**Auth Required** : YES
+**Auth Required** : Yes
 
 **cURL**
 ```bash
-curl --location '127.0.0.1:3000/api/v1/todos/2' \
+curl --location 'https://todolistapis.fly.dev/api/v1/todos/2' \
 --header 'Authorization: Bearer <your_token>'
 ```
 
@@ -231,11 +262,11 @@ curl --location '127.0.0.1:3000/api/v1/todos/2' \
 
 **URL** : `/api/v1/todos/<id>`
 
-**Auth Required** : YES
+**Auth Required** : Yes
 
 **cURL**
 ```bash
-curl --location --request PUT '127.0.0.1:3000/api/v1/todos/2' \
+curl --location --request PUT 'https://todolistapis.fly.dev/api/v1/todos/2' \
 --header 'Authorization: Bearer <your_token>' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -268,11 +299,11 @@ curl --location --request PUT '127.0.0.1:3000/api/v1/todos/2' \
 
 **URL** : `/api/v1/todos/<id>`
 
-**Auth Required** : YES
+**Auth Required** : Yes
 
 **cURL**
 ```bash
-curl --location --request PATCH '127.0.0.1:3000/api/v1/todos/5' \
+curl --location --request PATCH 'https://todolistapis.fly.dev/api/v1/todos/5' \
 --header 'Authorization: Bearer <your_token>'
 ```
 
